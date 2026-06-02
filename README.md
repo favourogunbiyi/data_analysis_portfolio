@@ -5,7 +5,10 @@ This portfolio contains my strongest work — real problems, real data, real res
 
 # What I Do
 **Design enterprise data architectures** — Normalize messy data into production-ready databases
+
 **Build KPI dashboards** — Turn scattered data into daily decision-making tools  
+
 **Uncover business insights** — Find revenue leaks, performance patterns, and forecasting accuracy
+
 **Clean & transform data** — Handle real-world messy datasets (duplicates, inconsistencies, missing values)
 
