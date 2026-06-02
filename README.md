@@ -1,7 +1,5 @@
 # data_analysis_portfolio
 Enterprise data analytics projects: banking architecture, sales KPIs, public policy analysis. SQL | Python | Tableau. 
-I solve data problems for businesses. Here's the proof.**
-
 I'm a data analyst specialising in **data modelling**, **KPI analysis**, and **actionable business insights**. 
 This portfolio contains my strongest work — real problems, real data, real results.
 
