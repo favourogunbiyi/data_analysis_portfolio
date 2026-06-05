@@ -14,3 +14,6 @@ This portfolio contains my strongest work — real problems, real data, real res
 **Uncover business insights** — Find revenue leaks, performance patterns, and forecasting accuracy
 
 **Clean & transform data** — Handle real-world messy datasets (duplicates, inconsistencies, missing values)
+
+# Project
+https://github.com/favourogunbiyi/retail_banking_dimension_modelling
