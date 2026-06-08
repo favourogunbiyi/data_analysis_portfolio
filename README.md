@@ -16,6 +16,6 @@ Enterprise data analytics projects: banking architecture, sales KPIs, public pol
 **Clean & transform data** — Handle real-world messy datasets (duplicates, inconsistencies, missing values)
 
 ## Project
-# [Retail Banking Dimension Modelling](https://github.com/favourogunbiyi/retail_banking_dimension_modelling)
+### [Retail Banking Dimension Modelling](https://github.com/favourogunbiyi/retail_banking_dimension_modelling)
 
-https://github.com/favourogunbiyi/TradeZone-E-Commerce-Analytics-SQL-Business-Analysis/tree/main
+### [TradeZone E-Commerce Analytics](https://github.com/favourogunbiyi/TradeZone-E-Commerce-Analytics-SQL-Business-Analysis/tree/main)
