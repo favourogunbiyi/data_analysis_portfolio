@@ -17,3 +17,4 @@ This portfolio contains my strongest work — real problems, real data, real res
 
 # Project
 https://github.com/favourogunbiyi/retail_banking_dimension_modelling
+https://github.com/favourogunbiyi/TradeZone-E-Commerce-Analytics-SQL-Business-Analysis/tree/main
