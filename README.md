@@ -5,7 +5,7 @@ This portfolio contains my strongest work — real problems, real data, real res
 Enterprise data analytics projects: banking architecture, sales KPIs, public policy analysis. SQL | Python | Tableau. 
 
 
-# What I Do
+## What I Do
 
 **Design enterprise data architectures** — Normalize messy data into production-ready databases
 
@@ -15,7 +15,7 @@ Enterprise data analytics projects: banking architecture, sales KPIs, public pol
 
 **Clean & transform data** — Handle real-world messy datasets (duplicates, inconsistencies, missing values)
 
-# Project
+## Project
 https://github.com/favourogunbiyi/retail_banking_dimension_modelling
 
 https://github.com/favourogunbiyi/TradeZone-E-Commerce-Analytics-SQL-Business-Analysis/tree/main
