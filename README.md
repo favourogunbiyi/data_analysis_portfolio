@@ -19,3 +19,5 @@ Enterprise data analytics projects: banking architecture, sales KPIs, public pol
 ### [Retail Banking Dimension Modelling](https://github.com/favourogunbiyi/retail_banking_dimension_modelling)
 
 ### [TradeZone E-Commerce Analytics](https://github.com/favourogunbiyi/TradeZone-E-Commerce-Analytics-SQL-Business-Analysis/tree/main)
+
+### [MovieLens Features Engineering and EDA project](https://github.com/favourogunbiyi/MovieLens-Engineering-and-EDA-Project/tree/main)
