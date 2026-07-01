@@ -54,30 +54,53 @@ I built a SQL-driven analysis workflow that cleaned the marketplace data, invest
 - **Insight communication:** converted technical findings into written recommendations suitable for non-technical stakeholders
 
 ### Example SQL Logic
-> Replace this block with one of your best real TradeZone queries — ideally a query that shows business thinking, not just basic cleaning.
--- Replace this with your actual TradeZone SQL query from the repo
+This SQL query describes how I solved my first business question
 ````
-WITH state_conversion AS (
-    SELECT
-        c.customer_state,
-        COUNT(DISTINCT c.customer_id) AS total_customers,
-        COUNT(DISTINCT o.order_id) AS total_orders,
-        ROUND(
-            COUNT(DISTINCT o.order_id)::numeric /
-            NULLIF(COUNT(DISTINCT c.customer_id), 0), 4
-        ) AS conversion_rate
-    FROM customers c
-    LEFT JOIN orders o
-        ON c.customer_id = o.customer_id
-    GROUP BY c.customer_state
-)
-SELECT
-    customer_state,
-    total_customers,
-    total_orders,
-    conversion_rate
-FROM state_conversion
-ORDER BY conversion_rate ASC, total_customers DESC;
+-- Q1: Customer Acquisition & 30-Day Conversion
+-- a. Find the top 5 states by new sign-ups in 2024 
+-- b. 30-day purchase conversion rate
+
+-- ALIASES USED IN THIS QUERY:
+-- nc = new_customers (customers who signed up in 2024)
+-- o  = orders (the orders table)
+-- c  = converted (customers who bought within 30 days)
+
+-- STEP 1: Every customer who signed up in 2024
+SELECT 
+    customer_id,
+    state,
+    signup_date
+FROM customers
+WHERE EXTRACT(YEAR FROM signup_date) = 2024;
+
+-- STEP 2: Find which new customers purchased within 30 days of signing up
+    SELECT DISTINCT nc.customer_id,
+    nc.state,
+    nc.signup_date,
+    o.order_date
+FROM customers nc
+JOIN orders o ON nc.customer_id = o.customer_id
+WHERE EXTRACT(YEAR FROM nc.signup_date) = 2024
+AND o.order_date >= nc.signup_date
+AND o.order_date <= nc.signup_date + INTERVAL '30 days';
+
+---STEP 3: percentage of customers who bought in their first 30 days
+SELECT 
+    nc.state,
+    COUNT(DISTINCT nc.customer_id) AS new_customers,
+    COUNT(DISTINCT o.customer_id) AS converted_customers,
+    ROUND(
+        COUNT(DISTINCT o.customer_id) * 100.0 / 
+        COUNT(DISTINCT nc.customer_id), 2
+    ) AS conversion_percentage
+FROM customers nc
+LEFT JOIN orders o ON nc.customer_id = o.customer_id
+AND o.order_date >= nc.signup_date
+AND o.order_date <= nc.signup_date + INTERVAL '30 days'
+WHERE EXTRACT(YEAR FROM nc.signup_date) = 2024
+GROUP BY nc.state
+ORDER BY new_customers DESC
+LIMIT 5;
 ````
 ### Why this project matters
 
@@ -121,30 +144,7 @@ I designed a retail banking star schema that transformed raw transaction-level d
 
 Replace this placeholder with your actual star schema image path when you add the diagram to the repo.
 
-![Palladium Bank Star Schema](images/palladium-star-schema.png)
-
-````
-If you want a temporary text version before adding the image, you can use this:
-
-                    +------------------+
-                    |   dim_customer   |
-                    +------------------+
-                             |
-                             |
-+-------------+     +------------------+     +--------------+
-| dim_branch  |-----| fact_transaction |-----| dim_product  |
-+-------------+     +------------------+     +--------------+
-                             |
-                             |
-                    +------------------+
-                    |   dim_channel    |
-                    +------------------+
-                             |
-                             |
-                    +------------------+
-                    |    dim_date      |
-                    +------------------+
-````
+![Palladium Bank Star Schema](https://github.com/favourogunbiyi/Palladium-Bank-Retail-Data-Modelling-Project/blob/main/Retail%20bank%20dimensional%20visual%20design.png))
 ### Analytical Highlights
 - Dimensional modelling: structured raw banking data into a reusable reporting model
 - Star schema design: built around transaction-level grain for downstream analytics
@@ -211,7 +211,7 @@ I built an Excel-based cleaning workflow to standardise product records, improve
 - Data preparation support: Strengthened the quality of the dataset before any analysis layer was built.
 
 ### What I Delivered
-- Removed duplicates and standardized text-heavy product fields
+- Removed duplicates and standardised text-heavy product fields
 - Handled missing values and documented cleaning decisions
 - Applied outlier checks where product records required additional review
 - Created a `short_title` feature to improve title consistency and reporting usability
