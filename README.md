@@ -1,8 +1,11 @@
 # Favour Ogunbiyi 
-## Data Analyst
+## Data Analyst → Data Engineer (in progress)
 
-**Data Analyst** with project experience spanning **SQL business analysis, retail banking data modelling, Python-based feature engineering, and e-commerce data cleaning**. My work focuses on cleaning messy transactional data, building analysis-ready structures, and generating insights from business datasets through SQL analysis, exploratory analysis, and technical reporting. I’m particularly interested in data roles that combine analytics, data modelling, and pipeline-oriented thinking.
+**Data Analyst** with project experience spanning **SQL business analysis, retail banking data modelling, Python-based feature engineering, and e-commerce data cleaning**. I turn messy transactional and customer data into analysis-ready structures and business-facing insight — cleaning, modelling, and querying data so teams can answer their real business questions with confidence. I’m particularly interested in data roles that combine analytics, data modelling, and pipeline-oriented thinking.
 
+**Recent proof:** cleaned and validated 7 SQL tables and answered 8 business questions across conversion, seller quality, and customer value for a multi-vendor e-commerce marketplace — [see the full analysis](https://github.com/favourogunbiyi/TradeZone-E-Commerce-Analytics-SQL-Business-Analysis) →
+
+**Currently building:** Python ETL pipelines, dimensional data modelling (star schema, fact/dimension design), and SQL-based market basket analysis — as I move from analytics reporting toward data engineering.
 <p align="center">
   <a href="https://www.linkedin.com/in/favour-ogunbiyi-b64928162/"><img src="https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin"></a>
   <a href="https://github.com/favourogunbiyi"><img src="https://img.shields.io/badge/Github-Connect-black?style=for-the-badge&logo=github"></a>
@@ -10,13 +13,13 @@
 </p>
 
 ## Core Tools & Skills
-**Languages & Querying**  `SQL` `Python`
+**Languages & Querying**    `SQL` `Python`
 
-**Analytics & Reporting** `Excel` `Power BI` `KPI reporting` `Exploratory Data Analysis (EDA)`
+**Analytics & Reporting**   `Excel` `Power BI` `KPI reporting` `Exploratory Data Analysis (EDA)`
 
-**Data Preparation**      `Data cleaning` `Data validation` `Transformation` `Missing-value analysis` `Duplicate detection` `Feature engineering`
+**Data Preparation**        `Data cleaning` `Data validation` `Transformation` `Missing-value analysis` `Duplicate detection` `Feature engineering`
 
-**Data Modelling**        `Star schema design` `Fact and dimension modelling` `Slowly changing dimensions (SCD)` `Analytics-ready warehouse design` `ETL / ELT planning`
+**Data Modelling**          `Star schema design` `Fact and dimension modelling` `Slowly changing dimensions (SCD)` `Analytics-ready warehouse design` `ETL / ELT planning`
 
 **Workflow & Communication** `Git/GitHub` `Technical documentation` `Analytical problem framing` `Business insight communication`
 
@@ -28,30 +31,24 @@
 
 **Project Link:** [TradeZone-E-Commerce-Analytics-SQL-Business-Analysis](https://github.com/favourogunbiyi/TradeZone-E-Commerce-Analytics-SQL-Business-Analysis)
 
-### Business Problem
-TradeZone, a multi-vendor e-commerce marketplace, had customer, order, payment, review, seller, and product data spread across multiple raw tables but no clear analytical layer for decision-making. Leadership needed answers to recurring business questions around **conversion, revenue concentration, seller quality, payment behaviour, and customer spending patterns**.
+**Business Problem**
+TradeZone is a multi-vendor e-commerce marketplace. Its customer, order, payment, review, seller, and product data sat across multiple raw tables with no analytical layer. Leadership couldn't answer basic questions about conversion, revenue concentration, seller quality, or which customers were actually worth retaining.
 
-### Solution
-I built a SQL-driven analysis workflow that cleaned the marketplace data, investigated performance across multiple business areas, and translated the findings into a structured **Executive Analyst Memo**.
+**Data & How Messy It Was**
+Seven raw tables needed validation before any analysis could run — inconsistent category labels, unstandardised city names, and duplicate records were all present. I documented every fix rather than silently patching around it, so the analysis stays auditable.
 
-### What This Project Solved
-- **Conversion visibility:** Identified states generating strong customer acquisition but weak purchase conversion, helping highlight where customer growth was not translating into revenue.
-- **Revenue concentration:** Surfaced the product categories and items driving the largest share of sales, giving the business a clearer view of revenue dependency.
-- **Seller quality monitoring:** Connected fulfilment performance and review behaviour to evaluate which sellers were supporting or damaging customer experience.
-- **Customer value segmentation:** Analysed spending patterns to separate low-, mid, and high-value customer groups for more targeted retention and marketing decisions.
-- **Performance-based incentives:** Built the analytical logic for a seller bonus qualification view using both revenue contribution and review quality.
+**Tools & Methods**
+PostgreSQL for cleaning and multi-table joins; structured SQL logic for cohort-style conversion tracking (30-day windows), revenue concentration, and a seller-bonus qualification model combining revenue contribution with review quality.
 
-### What I Delivered
-- **Cleaned and validated 7 SQL tables** before analysis
-- **Answered 8 business questions** across conversion, product performance, seller quality, customer spend, payment behaviour, and reward qualification
-- **Documented unresolved data-quality issues** and flagged risks that could affect interpretation
-- **Produced an Executive Analyst Memo** that translated SQL outputs into business-facing findings and recommendations
+**Findings**
+Some states drove strong new customer sign-ups but weak 30-day purchase conversion — acquisition wasn't the bottleneck; conversion was.
+A small set of product categories accounted for a disproportionate share of revenue, exposing concentration risk.
+Fulfilment performance and review quality diverged for several sellers — a seller can look "fine" on delivery speed and still be hurting the customer experience.
 
-### Analytical Highlights
-- **SQL joins & aggregations:** combined multi-table marketplace data to answer business questions across customers, sellers, products, and payments
-- **Data quality checks:** handled missing values, duplicates, inconsistent category labels, and city standardisation issues before analysis
-- **Business framing:** structured the work around decisions and performance questions, not just raw metrics
-- **Insight communication:** converted technical findings into written recommendations suitable for non-technical stakeholders
+**Recommendation & Impact**
+I flagged the underperforming conversion states for a targeted onboarding or incentive push, and proposed the seller-bonus logic as a starting point for a fairer performance-pay model. Full details and the SQL itself are in the [Executive Analyst Memo in the repo]().
+
+**Why this project matters:** This is raw marketplace data, cleaned by hand, turned into decisions — not a demo dataset with the mess already removed.
 
 ### Example SQL Logic
 This SQL query describes how I solved my first business question
@@ -141,10 +138,7 @@ I designed a retail banking star schema that transformed raw transaction-level d
 - Included performance planning through indexing, partitioning, and pre-aggregation considerations
 
 ### Star Schema Snapshot
-
-Replace this placeholder with your actual star schema image path when you add the diagram to the repo.
-
-![Palladium Bank Star Schema](https://github.com/favourogunbiyi/Palladium-Bank-Retail-Data-Modelling-Project/blob/main/Retail%20bank%20dimensional%20visual%20design.png))
+![Palladium Bank Star Schema](https://github.com/favourogunbiyi/Palladium-Bank-Retail-Data-Modelling-Project/blob/main/Retail%20bank%20dimensional%20visual%20design.png)
 ### Analytical Highlights
 - Dimensional modelling: structured raw banking data into a reusable reporting model
 - Star schema design: built around transaction-level grain for downstream analytics
