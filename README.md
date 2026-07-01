@@ -3,7 +3,7 @@
 
 **Data Analyst** with project experience spanning **SQL business analysis, retail banking data modelling, Python-based feature engineering, and e-commerce data cleaning**. I turn messy transactional and customer data into analysis-ready structures and business-facing insight — cleaning, modelling, and querying data so teams can answer their real business questions with confidence. I’m particularly interested in data roles that combine analytics, data modelling, and pipeline-oriented thinking.
 
-**Recent proof:** cleaned and validated 7 SQL tables and answered 8 business questions across conversion, seller quality, and customer value for a multi-vendor e-commerce marketplace — [see the full analysis](https://github.com/favourogunbiyi/TradeZone-E-Commerce-Analytics-SQL-Business-Analysis) →
+**Recent proof:** Identified that 597 high-spending customers drove ₦866.5M of a multi-vendor marketplace's 2024 revenue — nearly 314x more than the platform's remaining 72 medium/low spenders combined — and turned that into a targeted retention recommendation. [see the analyst memo](https://github.com/favourogunbiyi/TradeZone-E-Commerce-Analytics-SQL-Business-Analysis/blob/main/Analyst_Memo(1).pdf) →
 
 **Currently building:** Python ETL pipelines, dimensional data modelling (star schema, fact/dimension design), and SQL-based market basket analysis — as I move from analytics reporting toward data engineering.
 <p align="center">
@@ -32,26 +32,28 @@
 **Project Link:** [TradeZone-E-Commerce-Analytics-SQL-Business-Analysis](https://github.com/favourogunbiyi/TradeZone-E-Commerce-Analytics-SQL-Business-Analysis)
 
 **Business Problem**
-TradeZone is a multi-vendor e-commerce marketplace. Its customer, order, payment, review, seller, and product data sat across multiple raw tables with no analytical layer. Leadership couldn't answer basic questions about conversion, revenue concentration, seller quality, or which customers were actually worth retaining.
+TradeZone, a multi-vendor marketplace, had customer, order, payment, review, seller, and product data spread across 7 raw tables with no analytical layer connecting them. Leadership couldn't see whether growth was healthy or fragile — until Q4 2024 revenue hit ₦364.7 million, a 392% jump year-on-year, and the obvious next question was: is this sustainable?
 
 **Data & How Messy It Was**
-Seven raw tables needed validation before any analysis could run — inconsistent category labels, unstandardised city names, and duplicate records were all present. I documented every fix rather than silently patching around it, so the analysis stays auditable.
+I cleaned and validated 7 tables covering 850 customers, 3,015 orders, 6,426 order line items, 2,262 payments, 817 reviews, 280 products, and 90 sellers. Along the way, I found 150 orders with a NULL `total_amount` — 131 were recoverable from `order_items`, but 19 had no valid line items at all and had to be excluded from every revenue query. I also flagged 97 order_items rows where both unit price and line total were NULL, excluding them from product-revenue and rating-group calculations rather than guessing at the values.
 
 **Tools & Methods**
-PostgreSQL for cleaning and multi-table joins; structured SQL logic for cohort-style conversion tracking (30-day windows), revenue concentration, and a seller-bonus qualification model combining revenue contribution with review quality.
+PostgreSQL for cleaning and multi-table joins; SQL logic for 30-day cohort conversion tracking, revenue concentration by category, customer value segmentation, and a seller-bonus qualification model combining revenue contribution with review quality.
 
 **Findings**
-Some states drove strong new customer sign-ups but weak 30-day purchase conversion — acquisition wasn't the bottleneck; conversion was.
-A small set of product categories accounted for a disproportionate share of revenue, exposing concentration risk.
-Fulfilment performance and review quality diverged for several sellers — a seller can look "fine" on delivery speed and still be hurting the customer experience.
+    Conversion is broken everywhere, not just in weak states. Even the best-performing state, Lagos, converts only 49.3% of new sign-ups within 30 days — meaning roughly half of all new customers never make a first purchase. Kano (31.6%) and Oyo (33.9%) are far worse, out of 418 combined new sign-ups across the top 5 states in 2024.
+    Revenue is dangerously concentrated in one category. All 10 top-selling products by revenue in 2024 are Electronics — the top earner, an HP Pavilion 15 Laptop, alone generated ₦26.7 million from just 25 orders. Fashion, Food, and Home don't appear in the top 10 at all.
+    A tiny customer segment carries almost the entire platform. 597 High Spenders (₦100,000+) generated ₦866.5 million in 2024 — averaging ₦1.45 million each — while the remaining 72 Medium/Low Spenders contributed only ₦2.76 million combined.
 
 **Recommendation & Impact**
-I flagged the underperforming conversion states for a targeted onboarding or incentive push, and proposed the seller-bonus logic as a starting point for a fairer performance-pay model. Full details and the SQL itself are in the [Executive Analyst Memo in the repo]().
+I recommended a time-limited first-purchase incentive targeted at Kano and Oyo within 7 days of sign-up, projecting a 10–15 percentage point lift in 30-day conversion, measurable by rerunning the same query at 60–90 days. I also proposed a fulfilment-speed benchmark (100 hours) with a "Fast Delivery" badge for sellers like SportsCentral NG (98.4 hrs, 4.08 rating) to protect customer experience as order volume scales. Full details and SQL queries are in the  [repo](https://github.com/favourogunbiyi/TradeZone-E-Commerce-Analytics-SQL-Business-Analysis).
 
-**Why this project matters:** This is raw marketplace data, cleaned by hand, turned into decisions — not a demo dataset with the mess already removed.
+**What the data couldn't answer** 
+Repeat-purchase rate by cohort — I can identify first purchases, but not whether the 597 High Spenders are loyal repeat buyers or one-time spenders, which matters given how much revenue rides on that segment. I documented this gap rather than papering over it.
 
-### Example SQL Logic
-This SQL query describes how I solved my first business question
+**Why this project matters:** This is raw marketplace data, cleaned by hand, turned into board-level decisions — not a demo dataset with the mess already removed.
+
+**This SQL query describes how I solved my first business question**
 ````
 -- Q1: Customer Acquisition & 30-Day Conversion
 -- a. Find the top 5 states by new sign-ups in 2024 
@@ -99,9 +101,6 @@ GROUP BY nc.state
 ORDER BY new_customers DESC
 LIMIT 5;
 ````
-### Why this project matters
-
-This project shows my ability to take raw transactional marketplace data and turn it into business-facing analysis through cleaning, SQL investigation, and structured reporting. It reflects the kind of analyst work that sits between messy source data and decision-making.
 
 ## 2. Palladium Bank Retail Data Modelling
 **Project Type**: Dimensional Modelling / Analytics-Ready Data Design
@@ -110,44 +109,26 @@ This project shows my ability to take raw transactional marketplace data and tur
 
 **Project Link:** [Palladium-Bank-Retail-Data-Modelling-Project](https://github.com/favourogunbiyi/Palladium-Bank-Retail-Data-Modelling-Project)
 
-### Business Problem
+**Business Problem**
+Palladium Bank had 18 months of retail transaction history sitting in 15 raw columns, but analysts were still querying transaction logs directly for every report. Recurring questions — which customer segments drive fee income, which branches and channels see the most activity, which high-value customers are going quiet — had no reusable answer path.
 
-Palladium Bank had 18 months of retail banking transaction data, but analysts were still reporting directly from raw transaction logs. This made reporting slow, inconsistent, and difficult to scale across customer, branch, product, and transaction-channel analysis.
+**Data & How Messy It Was**
+Transaction-level banking data at 18 months of volume, with no existing reporting layer — every report was being built from scratch against operational tables never designed for analysis. 
 
-### The business needed a cleaner analytical structure that could support questions such as:
-- Which customer segments generate the most fee income?
-- Which branches and channels drive the highest transaction activity?
--Which high-value customers are becoming inactive?
--Which products contribute more to deposits vs withdrawals?
-### Solution
-I designed a retail banking star schema that transformed raw transaction-level data into an analytics-ready model for consistent reporting and downstream business analysis.
+**Tools & Methods**
+I designed a star schema at per-transaction grain — the most detailed level Kimball's methodology defines — because the business objectives centred on churn signals and recency/frequency behaviour, which only transaction-level detail can support. The model has one fact table (`Fact_Transactions`) surrounded by five dimensions: `Dim_Date`, `Dim_Customer`, `Dim_Branch`, `Dim_Product`, and `Dim_Channel`, plus a pre-aggregated `Agg_Monthly_Branch_Revenue` table. `Txn_ID` is handled as a degenerate dimension, stored directly in the fact table since it carries no attributes of its own.
+I applied Type 2 SCD (full history preserved) to `State` and `Tier`, since branch reorganisation and customer tier upgrades both need historical accuracy for regional and loyalty analysis — and Type 1 SCD (overwrite) to `Branch_Name` and `Product_Name`, since rebrands carry no analytical value once they've happened. For scale, I planned monthly range partitioning on `Txn_Date` and composite indexes on the four foreign keys, so a query for "March transactions in Lagos" hits one partition instead of scanning 18 months of data.
 
-### What This Project Solved
-- Reporting consistency: replaced raw-log analysis with a structured fact-and-dimension model designed for repeatable reporting
-- Customer analysis readiness: created a model that supports segmentation, inactivity analysis, and customer-level value tracking
-- Channel and branch performance reporting: made it easier to compare banking activity across service channels and locations
-- Historical analysis support: introduced Slowly Changing Dimension logic where business reporting required history preservation
-- Scalable analytics design: documented ETL, indexing, and partitioning considerations to make the warehouse usable beyond a one-off model sketch
+**Findings**
+The real bottleneck wasn't analyst skill — it was the absence of a reporting layer. Every recurring question (segment value, channel performance, inactivity risk) needed a join across entities that had never been formally modelled. Structuring the data at the transaction grain, with SCD logic where history matters, answers all of them directly instead of requiring a new ad-hoc query each time.
 
-### What I Delivered
-- Defined the analytical grain at the transaction level
-- Designed one fact table and multiple dimensions for customers, products, branches, channels, and dates
-- Mapped SCD logic for dimensions where historical changes matter
-- Documented ETL flow for initial loads and daily incremental updates
-- Outlined data-quality checks for duplicates, null amounts, invalid dates, and unresolved customers
-- Included performance planning through indexing, partitioning, and pre-aggregation considerations
+**Recommendation & Impact**
+This schema replaces one-off SQL against raw logs with a queryable reporting layer — the `Agg_Monthly_Branch_Revenue` table alone removes the need to re-sum millions of transaction rows every time a branch performance report is requested. 
 
-### Star Schema Snapshot
 ![Palladium Bank Star Schema](https://github.com/favourogunbiyi/Palladium-Bank-Retail-Data-Modelling-Project/blob/main/Retail%20bank%20dimensional%20visual%20design.png)
-### Analytical Highlights
-- Dimensional modelling: structured raw banking data into a reusable reporting model
-- Star schema design: built around transaction-level grain for downstream analytics
-- SCD decision-making: considered where history tracking was necessary for accurate reporting
-- ETL thinking: planned how raw operational data would be transformed into a reporting layer
-- Performance awareness: included indexing and partitioning considerations rather than stopping at logical design
 
-### Why This Project Matters
-This project demonstrates that I can think beyond dashboards and SQL queries alone. It shows how I approach analytics-ready data design, which matters when the business problem is not only what should be analyzed but also how the data should be structured so analysis can happen efficiently and consistently.
+**Why this project matters**
+It shows I can design how data should be structured before analysis happens, including the SCD and partitioning decisions that keep a model usable as data volume grows — not just query whatever structure I'm handed.
 
 ## 3. MovieLens Feature Engineering & Exploratory Data Analysis
 **Project Type**: Python Data Preparation & Exploratory Analysis
@@ -156,34 +137,25 @@ This project demonstrates that I can think beyond dashboards and SQL queries alo
 
 **Project Link:** [MovieLens-Engineering-and-EDA-Project](https://github.com/favourogunbiyi/MovieLens-Engineering-and-EDA-Project)
 
-### Business Problem
-MovieLens contains user ratings, movie metadata, and tagging behaviour, but the raw files do not directly explain the patterns behind user engagement. To make the dataset more useful for analysis, I needed to transform flat rating records into a richer feature layer that could support deeper exploration of rating behaviour, genre patterns, and engagement signals.
+**Business Problem**
+The MovieLens dataset ships as flat rating records — user, movie, rating, timestamp — with no feature layer connecting content characteristics to user behaviour. On its own, it can't explain why engagement patterns look the way they do.
 
-### Solution
-I built a Python-based data preparation and exploratory analysis workflow that merged the source files, cleaned inconsistencies, engineered new features, and explored how user ratings vary across movie attributes and engagement behaviour.
+**Data & How Messy It Was**
+Missing tags had to be replaced with a placeholder to avoid null-related errors downstream, duplicate records needed detection and removal, a small number of rows missing the `tmdbId` identifier were dropped to avoid mismatches, and raw Unix timestamps needed conversion into usable year/month fields before any temporal analysis was possible.
 
-### What This Project Solved
-- Made raw ratings more analysis-ready: transformed timestamps and movie metadata into usable behavioural features
-- Added context to user behaviour: engineered features such as movie age, genre count, tag activity, and rating frequency to move beyond a flat ratings table
-- Improved exploratory depth: created a stronger base for analysing how content characteristics and user engagement relate to rating patterns
-- Clarified modelling boundaries: documented where exploratory analysis ends and where a production recommendation system would require additional work
+**Tools & Methods**
+Pandas and NumPy for merging and cleaning; engineered 8 features including `release_year`, `num_genres`, `avg_rating`, `num_ratings`, `user_rating_freq`, `movie_age`, `num_tags`, and time-based fields extracted from rating timestamps; Matplotlib/Seaborn for exploring how ratings vary by decade, genre, and engagement level.
 
-### What I Delivered
-- Merged and cleaned multiple MovieLens source tables
- -Handled missing tags and removed unrecoverable records
-- Converted Unix timestamps into usable time-based fields
-- Engineered analytical features including release year, movie age, genre count, tag activity, and user rating frequency
-- Explored rating behaviour across decades, genres, and engagement levels
-- Documented analytical limitations and next-step opportunities
+**Findings**
+- Ratings peak for films from the **1940s**, and classics aged **61–100 years** score highest overall — recency doesn't correlate with quality in this dataset.
+- Movies tagged with **more genres score higher on average** than single-genre films, suggesting genre diversity signals broader appeal.
+- **Film-Noir, War, and Documentary** are the top-rated genres by average score, while Comedy and Horror show the widest spread in audience opinion.
+- Cult titles like Pulp Fiction and Fight Club lead the most-tagged list — tag volume tracks cultural staying power, not just release-year popularity.
 
-### Analytical Highlights
-- Feature engineering: created richer variables for content and user-behaviour analysis
-- Python data cleaning: prepared a multi-table dataset for exploratory work
-- EDA: explored relationships between ratings, movie characteristics, and engagement signals
-- Analytical communication: explained findings while clearly separating exploration from predictive modelling
+**Recommendation & Impact**
+These engineered features — particularly `movie_age`, `num_genres`, and `num_tags` — form a usable foundation for a hybrid recommendation system that balances nostalgia against recency bias and surfaces genre-diverse, high-engagement titles. I documented the boundary explicitly: this stage is feature engineering and EDA, not a deployed model, and a production recommender would need additional work beyond this feature layer.
 
-### Why This Project Matters
-This project shows my ability to use Python not just for cleaning data, but for building a stronger analytical layer on top of raw source files. It reflects feature engineering, exploratory thinking, and the ability to turn a flat dataset into a more informative one.
+**Why this project matters:** It shows Python used for building an analytical structure on top of raw data, not just cleaning it.
 
 ## Supporting Project
 ## E-Commerce Product Data Cleaning & Title Optimisation
@@ -192,50 +164,33 @@ This project shows my ability to use Python not just for cleaning data, but for 
 **Tools:** Excel, Data Cleaning, Text Standardisation  
 **Project Link:** [E-Commerce-Product-Data-Cleaning-Title-Optimization](https://github.com/favourogunbiyi/E-Commerce-Product-Data-Cleaning-Title-Optimization)
 
-### Business Problem
-Messy product catalogue data creates friction for both analysis and operations. Duplicate records, inconsistent naming, missing values, and overly long product titles reduce reporting quality and make product-level analysis harder to trust.
+**Business Problem**
+A 3,847-record e-commerce product catalogue had titles averaging 86.4 characters — some running past 400 — which breaks search indexing, catalogue display, and mobile listing pages.
 
-### Solution
-I built an Excel-based cleaning workflow to standardise product records, improve title consistency, and create cleaner fields for downstream analysis and reporting.
+**Data & How Messy It Was**
+3,847 raw records, reduced to 3,541 unique after deduplication. Titles carried HTML tags, stray punctuation, and embedded SKU/variant codes. 231 records (6.5%) had product-length values that were statistical outliers — likely data-entry errors or unit mismatches — and needed capping rather than deletion to preserve the rest of the dataset.
 
-### What This Project Solved
-- Catalogue standardisation: Reduced inconsistencies in text-heavy product records.
-- Duplicate cleanup: Improved confidence in product-level analysis by identifying repeated listings.
-- Title usability: Created a cleaner `short_title` field for easier downstream reporting and display.
-- Data preparation support: Strengthened the quality of the dataset before any analysis layer was built.
+**Tools & Methods**
+A three-stage Excel pipeline: base cleaning (TRIM + SUBSTITUTE to strip punctuation and HTML), variant/SKU code suppression via pattern matching, then 50-character capping at natural word boundaries. Outliers were capped at 4× the dataset median (638) rather than removed, preserving the raw values for auditability.
 
-### What I Delivered
-- Removed duplicates and standardised text-heavy product fields
-- Handled missing values and documented cleaning decisions
-- Applied outlier checks where product records required additional review
-- Created a `short_title` feature to improve title consistency and reporting usability
+**Findings**
+The cleaning pipeline cut mean title length from 86.4 to 40.8 characters, with all 3,541 titles now fitting the 50-character limit (up from an estimated ~60% before cleaning). Of those, 873 (24.7%) needed no further work, while 2,668 (75.3%) required the full variant-suppression and capping pipeline — meaning three in four listings had real title noise, not just a handful of edge cases.
 
-### Analytical Highlights
-- Excel-based cleaning workflow
-- Text standardisation for messy catalogue data
-- Preparation of analysis-ready product records
-- Practical data-quality improvement before reporting
+**Recommendation & Impact**
+The dataset is now ready for catalogue management and search indexing, with the original raw fields preserved alongside the cleaned versions so every change is auditable and reversible.
 
-### Why This Project Matters
-Although smaller than the SQL and Python projects in this portfolio, this work shows an important part of analytics: **improving data quality before analysis begins**. It adds evidence of hands-on cleaning work in Excel and strengthens the portfolio’s coverage of end-to-end data preparation.
+**Why this project matters:** Smaller in scope than the SQL and Python work above, but it's proof I do the unglamorous data-quality work — including deciding when to cap vs. delete — before analysis starts.
 
-## Current Projects
-## TradeZone Marketplace Performance Dashboard *(In Progress)*
-**Project Type:** Power BI Dashboard / KPI Reporting  
-**Tools:** Power BI, SQL, Data Modelling, KPI Reporting
 
-### Project Context
-This is a follow-up reporting project built from the TradeZone e-commerce analysis domain. It is **not positioned as part of the original SQL case study**, but as a separate Power BI project designed to turn marketplace analysis into a more interactive reporting experience.
+### Current Projects
 
-### Current Goal
-Build a Power BI dashboard that supports recurring monitoring of:
-- Revenue and order performance
-- Customer conversion patterns
-- Seller quality and review trends
-- Payment behaviour and category-level performance
+### TradeZone Marketplace Performance Dashboard (In Progress)
 
-### Why It’s in Progress
-The analytical direction is defined, but the dashboard build is still underway. It currently sits in the portfolio as an active reporting project rather than a completed case study.
+**Project Type**: Power BI Dashboard / KPI Reporting
+**Tools**: Power BI, SQL, Data Modelling, KPI Reporting
+
+Built as a follow-up to the TradeZone SQL analysis above — turning the same marketplace domain into an interactive reporting layer covering revenue and order performance, customer conversion, seller quality and review trends, and payment behaviour by category. This is a live reporting build, not a finished case study, so it's listed separately from the completed TradeZone analysis.
+
 
 ### Portfolio Snapshot by Skill Area
 
@@ -245,15 +200,15 @@ The analytical direction is defined, but the dashboard build is still underway. 
 | Data Cleaning & Validation | TradeZone, MovieLens, Product Cleaning |
 | Dimensional Modelling | Palladium Bank Retail Data Modelling |
 | Feature Engineering | MovieLens |
-| Excel-Based Data Preparation | Product Cleaning |
-| Technical Documentation | TradeZone, Palladium, MovieLens |
+| Excel-Based Data Preparation |Ecommerce Product Cleaning |
+| Technical Documentation | TradeZone, Palladium, MovieLens, Ecommerce Title Optimisation |
 | Reporting / Dashboard Direction | TradeZone Marketplace Performance Dashboard *(in progress)* |
+|Data Engineering (in progress) |ETL pipeline design, star schema rebuilds — see Currently Building above|
 
 ### What This Portfolio Shows
-
-Across these projects, my work demonstrates the ability to:
-- clean and validate messy transactional, customer, and catalogue datasets
-- write SQL to answer business questions and support commercial analysis
-- design analytics-ready structures that make downstream reporting easier
-- engineer useful features and explore behavioural patterns in Python
-- communicate findings, assumptions, and limitations through structured technical documentation
+Across these projects, I:
+clean and validate messy transactional, customer, and catalogue datasets — and document exactly what was excluded and why
+write SQL to answer business questions and support commercial decisions, including where the data falls short
+design analytics-ready structures (star schemas, SCD strategy, partitioning) that make downstream reporting easier and faster
+engineer features and explore behavioural patterns in Python
+communicate findings, assumptions, and limitations honestly, not just the results that make a project look finished
